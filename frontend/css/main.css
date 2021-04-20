@@ -1,3 +1,12 @@
+:root {
+  --itemGrow: 1.2;
+  --duration: 250ms;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   margin-top: 0;
@@ -11,6 +20,7 @@ body {
   padding-top: 50px;
   position: fixed;
   left: 0;
+  float: left;
   width: 250px;
   height: 100%;
 }
@@ -48,23 +58,103 @@ body {
   padding-right: 15px;
 }
 
-
-.wrap {
-  width: 100%;
+.search-layer {
+  float: right;
+  width: 78%;
   position: absolute;
   top: 10%;
   left: 20%;
 }
 
 .form-outline {
-  width: 50%;
+  width: 93%;
 }
 
 #searchButton {
   background: #2F323A;
-  border: #2F323A
+  border: #2F323A;
 }
 
 #searchFilter {
   width: 16%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 100%);
+  overflow: hidden;
+  scroll-behavior: smooth;
+  float: right;
+  width: 78%;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+}
+
+.toppicks-heading {
+  height: 20px;
+  float: right;
+  width: 78%;
+  position: absolute;
+  left: 20%;
+  top: 25%;
+}
+
+.wrapper section {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  margin: 20px 0;
+}
+
+.wrapper section .item {
+  position: relative;
+  padding: 0 2px;
+  transition: var(--duration) all;
+}
+
+.wrapper section .item:hover {
+  margin: 0 40px;
+  transform: scale(1.2);
+}
+
+.wrapper section .heading {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+}
+
+.wrapper section .duration {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  color: #fff;
+}
+
+.wrapper section .arrow__btn {
+  position: absolute;
+  color: #fff;
+  text-decoration: none;
+  font-size: 6em;
+  background: rgb(0, 0, 0);
+  width: 80px;
+  padding: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
+.wrapper section .left-arrow {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.wrapper section .right-arrow {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
 }
