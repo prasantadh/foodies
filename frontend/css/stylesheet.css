@@ -1,0 +1,107 @@
+img.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+img.button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 34px;
+  max-width: 350px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+body {
+  background: #416d49;
+}
+
+h1 {
+  font-family: Rosarivo;
+  font-weight: normal;
+  font-size: 48px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+  font-family: Rosarivo;
+  font-weight: normal;
+  font-size: 30px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  width: 100%;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+form.example input[type="password"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  width: 100%;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+form.example button {
+  float: left;
+  width: 44%;
+  height: 40px;
+  padding: 10px;
+  background: #162419;
+  color: white;
+  font-size: 17px;
+  border: 1px black;
+  border-left: none;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-left: 28%;
+}
+
+form.example button:hover {
+  background: #0a0f0b;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container {
+  text-align: center;
+  margin: auto;
+}
