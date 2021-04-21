@@ -1,37 +1,132 @@
 <!DOCTYPE html>
 <html>
-  <!-- stuff tends to get funky when page size changes -->
-  <head>
-    <title>Signup - Diet Preference | Foodies</title>
-    <link href="css/stylesheet.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <img class="logo" src="images/Logo1.png" alt="logo_dark" style="width: 10%" />
-    <h1 style="margin-top: 0px">Sign Up</h1>
-    <h2 style="margin-top: -31px; letter-spacing: 4px">Dietary Preferences</h2>
-    
-    <!-- <ul>
-      <li>
-          <p>Vegan
-          <label class="switch" style = "width:50%">
-          <input type="checkbox">
-          <span class="slider round"></span></p>
-      </li>
-    </ul> -->
-    <div class="container" style="max-width: 300px"></div>
-    <form class = "preferences" style = "margin:auto; width:50%">
-      
-      <p>Vegan         
-            <label class="switch">
-      <input type="checkbox">
-      <span class="slider round"></span>
-      </label></p>
+<!-- stuff tends to get funky when page size changes -->
 
-      </form>
-    </div>
-      
-    <!-- <div class="container" style="max-width: 300px">
+<head>
+  <title>Signup - Diet Preference | Foodies</title>
+  <link href="css/stylesheet.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <img class="logo" src="images/Logo1.png" alt="logo_dark" style="width: 10%" />
+  <h1 style="margin-top: -70px">Sign Up</h1>
+  <h2 style="margin-top: -31px; letter-spacing: 4px">Dietary Preferences</h2>
+
+  <div class="container" style="max-width: 720px; margin-top:-25px">
+    <form class="preferences" style="margin:auto;">
+
+      <div class="leftdiv">
+        <p>Vegan</p>
+        <p>Vegetarian</p>
+        <p>Egg</p>
+        <p>Keto</p>
+        <p>Paleo</p>
+        <p>Allergies</p>
+        <p>What's your daily calorie goal?</p>
+        <p>How many meals do you eat a day?</p>
+      </div>
+
+      <div class="rightdiv">
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <br>
+        <input type="text" placeholder="Start Typing" name="Allergies" id="allergies" />
+        <br>
+        <input type="number" name="Calories" id="calories" style="margin-top:21px" />
+        <br>
+        <br>
+        <input type="number" name="Meals" id="meals" style="margin-top:16px" />
+        <br>
+      </div>
+      <button type="button" onclick="">Submit</button>
+
+
+      <!-- <p>Vegan
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+
+    <p>Vegetarian
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+
+    <p>Egg
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+
+    <p>Keto
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+
+    <p>Paleo
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p>
+
+    <p>Allergies
+      <input
+          type="text"
+          placeholder="Start Typing"
+          name="Allergies"
+          id="allergies"
+        />
+    </p>
+
+    <p>What's your daily calorie goal?</p>
+    <input
+          type="text"
+          placeholder="Start Typing"
+          name="Allergies"
+          id="allergies"
+        />
+
+    <p>How many calories do you eat a day?
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </p> -->
+
+    </form>
+  </div>
+
+  <!-- <div class="container" style="max-width: 300px">
       <form class="example" style="margin: auto">
         <input
           type="text"
@@ -75,6 +170,7 @@
         />
 
         <button type="button" onclick="" style="margin-top: 20px">Next</button> -->
-        
-  </body>
+
+</body>
+
 </html>
