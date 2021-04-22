@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel = "stylesheet" href = "css/stylesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <title>Recipe - Burger | Foodies</title>
+   </head>
+<body style = "background: #ffffff;">    
+    <div class="sidebar">
+        <center>
+            <img src="images/sample_profile_image.png" class="profile_image" alt="">
+            <h3>John Doe</h3>
+        </center>
+        <a href="#" style="background: #19B3D3;"><i class="fas fa-desktop"></i><span>Home</span></a>
+        <a href="#"><i class="fas fa-utensils"></i><span>My Recipes</span></a>
+        <a href="#"><i class="fas fa-info"></i><span>About</span></a>
+        <a href="#"><i class="fas fa-user"></i><span>Profile</span></a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+    </div>
+    <div class="content-wrapper">
+        <section class="section section-search">
+                <div class="row">
+                    <div class="col s8">
+                        <div class="input-field">
+                            <input class="white grey-text" placeholder="Search for recipes." type="text">
+                            
+                        </div>
+                    </div>
+                    <div class="col" style="margin-top: 12px;">
+                        <button type="button" class="btn btn-primary" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="col" style="margin-top: 12px;">
+                        <button type="button" class="btn btn-dark" id="searchFilter">Filters</button>
+                    </div>
+                </div>
+        </section>
+    <div style="margin-left: 50px; margin-top: -20px; padding-bottom: 20px;">
+        <h3>Burger</h3>
+        <div style="width: 275px; height: 183px">
+            <img src="images/burger.jpg" />
+        </div>
+        <div style="margin-top: 20px">
+            <h4>Ingedients</h4>
+            <ul style="margin-left: 20px; list-style: black circle;">
+                <li>Beef</li>
+                <li>Cheese</li>
+                <li>Buns</li>
+                <li>Lettuce</li>
+                <li>Tomato</li>
+            </ul>
+        </div>
+        <div style="margin-top: 20px">
+            <h4>Recipe</h4>
+            <ol style="margin-left: 20px">
+                <li>Cook beef</li>
+                <li>Put everything together</li>
+            </ol>
+        </div>
+        </div>
+
+<!-- Nutrition Info -->
+<section class="nutrition-label simplified-label" style = "margin-left:440px; margin-top:-530px">
+    <header class="nutrition-header border-b-lg">
+      <h1 class="nutrition-facts border-b">Nutrition Facts</h1>
+      <div class="servings">Servings: 1</div>
+      <div class="nutrition-row">
+        <div class="nutrition-column text-md text-bold">Serving size</div>
+        <div class="nutrition-column text-md text-bold text-right">1 burger</div>
+      </div>
+    </header>
+    <div class="nutrition-row border-b-md">
+      <div class="nutrition-column text-bold">
+        <div class="text-sm">Amount per serving</div>
+        <div class="calories">Calories</div>
+      </div>
+      <div class="nutrition-column calories amount align-bottom text-right">
+        400
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column text-right text-bold text-sm">
+        % DV *
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Total Fat</span> 14g
+      </div>
+      <div class="nutrition-column text-bold text-right">
+        18%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent">Saturated Fat 2g</span>
+      </div>
+      <div class="nutrition-column text-bold text-right">
+        10%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent">
+              <i>Trans</i> Fat 2g</span>
+      </div>
+      <div class="nutrition-column text-bold text-right">
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent">Polyunsaturated Fat 4g</span>
+      </div>
+      <div class="nutrition-column text-bold text-right">
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent">Monounsaturated Fat 6g</span>
+      </div>
+      <div class="nutrition-column text-bold text-right">
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Cholesterol</span> 0mg
+      </div>
+      <div class="nutrition-column text-bold text-right">
+        0%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Sodium</span> 0
+      </div>
+      <div class="nutrition-column text-bold text-right">
+        0%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Total Carbohydrate</span> 0g
+      </div>
+      <div class="nutrition-column text-bold text-right">
+        0%
+      </div>
+    </div>
+    <div class="nutrition-row border-b-md">
+      <div class="nutrition-column">
+        <span class="text-bold">Protein</span> 0g
+      </div>
+      <div class="nutrition-column text-bold text-right">
+      </div>
+    </div>
+    <footer>
+      <div class="nutrition-footer">
+        <div class="footnote border-b">
+          Not a significant source of cholesterol, dietary fiber, total sugars, added sugars, vitamin D, calcium, iron, and potassium
+        </div>
+      </div>
+      <div class="nutrition-footer">
+        * %DV = %Daily Value
+      </div>
+    </footer>
+  </section>
+
+  </body>
+
+</html>
