@@ -1,0 +1,203 @@
+# Template for cloudformation
+AWSTemplateFormatVersion: 2010-09-09
+Description: Template for Spam Detection Email filters
+
+Resources:
+
+  LambdaExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+          Action: "sts:AssumeRole"
+           
+  LambdaExecutionPolicy:
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "FoodiesLambdaExecutionPolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "VisualEditor0"
+            Effect: "Allow"
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: '*'
+          - Sid: "VisualEditor1"
+            Effect: "Allow"
+            Action:
+              - s3:GetObject
+              - ses:SendRawEmail
+            Resource:
+              - '*'
+      Roles:
+        - !Ref LambdaExecutionRole
+
+  UserLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "user-lambda"
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {"statusCode" : "200", "body" : "hola!"}
+      Runtime: python3.7
+      Handler: lambda_function.lambda_handler
+
+  S3Frontend:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      AccessControl: "PublicRead"
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
+        ErrorDocument: "error.html"
+
+  CodeBucket:
+    Type: "AWS::S3::Bucket"
+
+  CodeBuildRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          Effect: "Allow"
+          Principal: 
+            Service: "codebuild.amazonaws.com"
+          Action: "sts:AssumeRole"
+
+  CodePipelineRole:
+    Type: "AWS::IAM::Role"
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          Effect: "Allow"
+          Principal:
+            Service: "codepipeline.amazonaws.com"
+          Action: "sts:AssumeRole"
+
+  CodeBuildPolicy:
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "CodeBuildPolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: "Allow"
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            - s3:GetObject
+            - s3:GetObjectVersion
+            - s3:PutObject
+            - s3:GetBucketAcl
+            - s3:GetBucketLocation
+            - lambda:UpdateFunctionCode
+          Resource: '*'
+      Roles:
+        - !Ref CodeBuildRole
+  
+  CodePipelinePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: "CodePipelinePolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          Action: 
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            - s3:GetObject
+            - s3:PutObject
+            - codebuild:*
+          Effect: Allow
+          Resource:
+            - "*"
+      Roles:
+        - !Ref CodePipelineRole
+
+  BuildAndDeploy:
+    Type: "AWS::CodeBuild::Project"
+    Properties:
+      Description: Deploy the built project
+      ServiceRole: !Ref CodeBuildRole
+      TimeoutInMinutes: 5
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: buildspec.yaml
+      Environment:
+        Type: "LINUX_CONTAINER"
+        ComputeType: "BUILD_GENERAL1_SMALL"
+        Image: "aws/codebuild/standard:5.0"
+        EnvironmentVariables:
+          - Name: "S3_FRONTEND_URL"
+            Type: "PLAINTEXT"
+            Value: !Sub "s3://${S3Frontend}"
+      Artifacts:
+        Type: CODEPIPELINE
+
+  Pipeline:
+    Type: "AWS::CodePipeline::Pipeline"
+    Properties:
+      Name: "FoodiesFrontEndPipeline"
+      ArtifactStore: 
+        Location: !Ref CodeBucket
+        Type: S3
+      RestartExecutionOnUpdate: true
+      RoleArn: !GetAtt
+        - CodePipelineRole
+        - Arn
+      Stages:
+
+        # Stage 1 Get the source from Github
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              RunOrder: 1
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: 1
+              Configuration: 
+                Owner: prasantadh
+                Repo: foodies
+                Branch: main
+                OAuthToken: >-
+                  {{resolve:secretsmanager:GITHUB_ACCESS:SecretString:GITHUB_ACCESS_TOKEN}}
+              OutputArtifacts:
+                - Name: SourceCode
+
+        # Stage 2: zip and push lambda code to a S3 bucket
+        - Name: BuildAndDeploy
+          Actions: 
+            - Name: BuildThenDeploy
+              RunOrder: 1
+              InputArtifacts:
+                - Name: SourceCode
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              Configuration: 
+                ProjectName: !Ref BuildAndDeploy
+              OutputArtifacts:
+                - Name: TheArtifact
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - S3Frontend
+      - WebsiteURL
+    Description: URL for the website hosted on S3
