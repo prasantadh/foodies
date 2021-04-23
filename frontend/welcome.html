@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <!-- stuff tends to get funky when page size changes -->
+  <head>
+    <title>Welcome | Foodies</title>
+    <link href="css/stylesheet.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <img class="logo" src="images/Logo1.png" alt="logo_dark" style="width: 10%" />
+    <h1 class = "welcome" style="margin-top: -15px">Welcome!</h1>
+    <img
+      class="button"
+      src="images/facebook.PNG"
+      alt="Facebook"
+      style="margin-top: -15px"
+    />
+    <img
+      class="button"
+      src="images/google.png"
+      alt="Google"
+      style="margin-top: 10px"
+    />
+    <!-- I think we need better buttons -->
+    <div class="container" style="max-width: 300px">
+      <form class="example" style="margin: auto">
+        <input
+          type="text"
+          placeholder="E-mail"
+          name="email"
+          id="email"
+          required
+          style="margin-top: 22px"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          id="password"
+          required
+          style="margin-top: 15px"
+        />
+
+        <button type="button" onclick="location.href='homepage.html'" style="margin-top: 20px">Login</button>
+      </form>
+    </div>
+    <p style="margin-top: 5px">Not a user yet?</p>
+    <form class="example" style="margin: auto; max-width: 300px">
+      <button type="button" onclick="location.href='signup.html'" style="margin-top: 3px">Sign Up</button>
+    </form>
+  </body>
+</html>

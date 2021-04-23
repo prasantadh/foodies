@@ -1,0 +1,327 @@
+img.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+img.button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 34px;
+  max-width: 350px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+body {
+  background: #416d49;
+}
+
+h1.welcome {
+  font-family: Rosarivo;
+  font-weight: normal;
+  font-size: 48px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+  font-family: Rosarivo;
+  font-weight: normal;
+  font-size: 30px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  width: 100%;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+form.example input[type="password"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  width: 100%;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+form.example button {
+  float: left;
+  width: 44%;
+  height: 40px;
+  padding: 10px;
+  background: #162419;
+  color: white;
+  font-size: 17px;
+  border: 1px black;
+  border-left: none;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-left: 28%;
+}
+
+form.example button:hover {
+  background: #0a0f0b;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container {
+  text-align: center;
+  margin: auto;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 21px;
+  margin-top: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #162419;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #162419;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+form.preferences p {
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: right;
+
+  color: #ffffff;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+form.preferences button {
+  float: left;
+  width: 20%;
+  height: 40px;
+  padding: 10px;
+  background: #162419;
+  color: white;
+  font-size: 17px;
+  border: 1px black;
+  border-left: none;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-left: 40%;
+}
+
+form.preferences button:hover {
+  background: #0a0f0b;
+}
+
+form.preferences::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+form.preferences input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  height: 21px;
+  margin-top: 24px;
+  width: 150px;
+  border-radius: 6px;
+}
+
+form.preferences input[type="number"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px black;
+  float: left;
+  background: #f1f1f1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  height: 28px;
+  width: 86px;
+  border-radius: 20px;
+}
+
+.leftdiv {
+  float: left;
+  text-align: right;
+  width: 350px;
+}
+
+.rightdiv {
+  float: left;
+  text-align: left;
+  width: 150px;
+  margin-left: 20px;
+}
+
+/* Nutrition Info */
+
+/* ========================================================================== Nutrition Label ============================================================================= */
+.nutrition-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  border: 2px solid #000;
+  padding: 5px;
+  line-height: 1.2;
+  width: 260px;
+}
+.nutrition-label .nutrition-facts {
+  font-family: "Arial Black", "Helvetica Black", "Arial-BoldMT";
+  margin: 0 0 2px 0;
+  padding-bottom: 2px;
+  font-size: 28px;
+  line-height: 1;
+}
+.nutrition-label .nutrition-header {
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+.nutrition-label .nutrition-footer {
+  display: flex;
+  font-size: 10px;
+  margin-top: 5px;
+}
+.nutrition-label .nutrition-footer .asteric {
+  width: 13px;
+}
+.nutrition-label .nutrition-row {
+  display: flex;
+  padding: 2px 0;
+}
+.nutrition-label .nutrition-row > .nutrition-column {
+  flex-grow: 1;
+}
+.nutrition-label .align-bottom {
+  align-self: flex-end;
+}
+.nutrition-label .border-b-none {
+  border-bottom: 0;
+}
+.nutrition-label .border-b {
+  border-bottom: 1px solid #000;
+}
+.nutrition-label .border-b-md {
+  border-bottom: 6px solid #000;
+}
+.nutrition-label .border-b-lg {
+  border-bottom: 10px solid #000;
+}
+.nutrition-label .border-t-sm {
+  border-top: 1px solid #000;
+}
+.nutrition-label .text-sm {
+  font-size: 10px;
+}
+.nutrition-label .text-md {
+  font-size: 16px;
+}
+.nutrition-label .text-bold {
+  font-family: "Arial Black", "Helvetica Black", "Arial-BoldMT";
+}
+.nutrition-label .text-right {
+  text-align: right;
+}
+.nutrition-label .text-indent {
+  margin-left: 15px;
+}
+.nutrition-label .text-indent-md {
+  margin-left: 30px;
+}
+.nutrition-label .calories {
+  font-size: 25px;
+  line-height: 1;
+  font-family: "Arial Black", "Helvetica Black", "Arial-BoldMT";
+}
+.nutrition-label .calories.amount {
+  font-size: 32px;
+}
+.nutrition-label.simplified-label .footnote {
+  padding-bottom: 5px;
+}
