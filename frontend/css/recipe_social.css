@@ -1,0 +1,17 @@
+.container-content {
+    top: 5%;
+    left: 20%;
+    width: 75%;
+    height: 100%;
+    float: right;
+    position: absolute;
+}
+
+.sidebar h3 {
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+}
