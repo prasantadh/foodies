@@ -7,6 +7,10 @@ body {
     overflow-y: scroll;
 }
 
+.col {
+    color: #2F323A;
+}
+
 .sidebar {
     background: #2F323A;
     margin-top: 0px;
@@ -83,4 +87,12 @@ body {
 .slick-next:before {
     font-family: initial !important;
     color: #2F323A;
+}
+
+#searchButton {
+    background-color: #2F323A;
+}
+
+#searchFilter {
+    background-color: #2F323A;
 }

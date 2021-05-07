@@ -11,20 +11,20 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Foodies</title>
    </head>
 <body>    
-    <div class="sidebar">
-        <center>
-            <img src="images/sample_profile_image.png" class="profile_image" alt="">
-            <h3>John Doe</h3>
-        </center>
-        <a href="homepage.html"><i class="fas fa-desktop"></i><span>Home</span></a>
-        <a href="#"><i class="fas fa-utensils"></i><span>My Recipes</span></a>
-        <a href="recipe_social.html" style="background: #19B3D3"><i class="fas fa-info"></i><span>Recipes by Users</span></a>
-        <a href="#"><i class="fas fa-user"></i><span>Profile</span></a>
-        <a href="welcome.html"><i class="fas fa-sign-in-alt"></i><span>Log Out</span></a>
+    <div id="nav-placeholder">
+
     </div>
+    
+    <script>
+    $(function(){
+      $("#nav-placeholder").load("sidebar.html");
+    });
+    </script>
+
     <div class="container-content">
         <div class="w3-col m12">
             <div class="w3-row-padding">
@@ -33,7 +33,7 @@
                         <div class="w3-container w3-padding">
                             <h6>Have a new recipe? Share it with others.</h6>
                             <p contenteditable="true" class="w3-border w3-padding w3-opacity">What is your recipe called?</p>
-                            <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>Add ingredients</button> 
+                            <button type="button" class="w3-button w3-theme" style="color: #2f322f;"><i class="fa fa-pencil"></i>Add ingredients</button> 
                         </div>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                         <img src="images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
                     </div>
                 </div>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom" id="likeButton"><i class="fa fa-thumbs-up"></i>  Like</button> 
+                <!-- <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
             </div>
             
             <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+                <!-- <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
             </div>
 
             <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+                <!--<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
             </div>
         </div>
     </div>
