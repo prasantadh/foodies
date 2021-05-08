@@ -1,94 +1,42 @@
 <!DOCTYPE html>
 <html>
-<!-- stuff tends to get funky when page size changes -->
 
 <head>
   <title>Welcome | Foodies</title>
-  <!-- <link href="css/stylesheet.css" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link href="css/buttons.css" rel="stylesheet" />
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <link href="css/background_image.css" rel="stylesheet" />
+  <link href="css/login_signup_style.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      background-image: url("images/pexels-clem-onojeghuo-375897.jpg");
-      backdrop-filter: blur(5px);
-      height: 100%;
-
-      /* Center and scale the image nicely */
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      padding: 60px;
-    } 
-
-    /* .button{
-  background-color: #04AA6D;
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.button1 {border-radius: 2px;} */
-
-  </style>
 </head>
 
-<body>
-  <!-- <img class="logo" src="images/Logo1.png" alt="logo_dark" style="width: 10%" /> -->
-  <!-- FIX COLORING -->
-  <!-- <div class = "bg"> </div> -->
-  <div class="w3-card-4 w3-round-large" style="background-color: #2F323A;
-    margin: auto;
-    max-width: 450px;
-    padding: 30px;
-    margin-top: 50px;
-    text-align: center;
-    color: white;">
-    <h2 class="welcome" style="margin-top: -15px; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); color: rgb(240 255 220 / 75%);">Welcome!</h1>
-      <a href="#" class="fb btn">
-        <i class="fa fa-facebook fa-fw"></i> Continue with Facebook
-      </a>
-      <a href="#" class="google btn"><i class="fa fa-google fa-fw">
-        </i> Continue with Google+
-      </a>
-      <!-- <img
-      class="button"
-      src="images/facebook.PNG"
-      alt="Facebook"
-      style="margin-top: -15px"
-    />
-    <img
-      class="button"
-      src="images/google.png"
-      alt="Google"
-      style="margin-top: 10px"
-    /> -->
-      <!-- I think we need better buttons -->
-      <div>
-        <form style="margin: auto">
-          <input type="text" placeholder="E-mail" name="email" id="email" required style="margin-top: 22px" />
-          <input type="password" placeholder="Password" name="password" id="password" required
-            style="margin-top: 15px" />
-
-          <button type="test" onclick="location.href='homepage.html'" style="margin-top: 20px">Login</button>
-        </form>
-        <!-- <button type="button1" onclick="location.href='homepage.html'" style="margin-top: 20px">Login</button> -->
-      </div>
-      <p style="margin-top: 5px">Not a user yet?</p>
-      <form class="example" style="margin: auto; max-width: 300px">
-        <button type="w3-button" onclick="location.href='signup.html'" style="margin-top: 3px">Sign Up</button>
+<body style="padding-top: 11px">
+  <div class="w3-card-4 w3-round-large card-custom" style="margin-top:50px">
+    <h2 style="margin-top: -15px;">
+      Welcome!
+    </h2>
+    <a href="#" class="fb btn">
+      <i class="fa fa-facebook fa-fw"></i> Continue with Facebook
+    </a>
+    <a href="#" class="google btn"><i class="fa fa-google fa-fw"> </i> Continue with Google+
+    </a>
+    <div>
+      <form style="margin: auto">
+        <input type="text" placeholder="E-mail" name="email" id="email" required style="margin-top: 22px" />
+        <input type="password" placeholder="Password" name="password" id="password" required style="margin-top: 15px" />
+        <button type="button" class="btn btn-dark button-custom" id="Login" onclick="location.href='homepage.html'"
+          style="margin-top: 12px;">
+          Login
+        </button>
       </form>
+    </div>
+    <p style="margin-top: 15px; margin-bottom: 3px">Not a user yet?</p>
+    <button type="button" class="btn btn-dark button-custom" id="Signup">
+      Sign Up
+    </button>
   </div>
-  <!-- </div> -->
 </body>
 
 </html>
