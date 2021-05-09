@@ -12,7 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="scripts/home.js"></script>
     <title>Foodies</title>
    </head>
 <body>    
@@ -106,7 +105,6 @@
                         </div>
                     </div>
                 </div>  
-                !-->
             </div>
         </section>
         <section class="section section-popular">
@@ -115,8 +113,8 @@
                     <h5>Popular Recipes</h5>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s3">
+            <div class="row" id="popularRecipes">
+                <!--<div class="col s3">
                     <div class="card">
                         <div class="card-image">
                             <img src="images/burger.jpg">
@@ -217,12 +215,13 @@
                   </div>
                 </div>
                 </div>
+                !-->
               </div>
             </div>
         </section>
     </div>
     <script type="text/javascript">
-        $('.slider').slick({
+        $('.row-slider').slick({
             dots: true,
             infinite: true,
             speed: 300,
@@ -255,5 +254,6 @@
             ]
             });
     </script>
+    <script type="text/javascript" src="scripts/home.js"></script>
 </body>
 </html>
