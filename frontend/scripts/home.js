@@ -2,7 +2,7 @@ const popularRecipesBlock = document.getElementById('popularRecipes');
 
 function addCard() {
     var recipeName = "Burger";
-    var recipeImage = "images/burger.jpg";
+    var recipeImage = "css/images/burger.jpg";
     var recipePrepTime = "Prep Time : 10 mins";
 
     var colDiv = document.createElement('div');
