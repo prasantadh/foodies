@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Foodies API
+  description: 'The API for foodies project under cloud computing spring 2021, NYU'
+  termsOfService: https://cc-s2021-foodies.com/terms-of-use
+  contact:
+    name: Prasant Adhikari
+    url: prasantadh.github.io
+    email: pa1038@nyu.edu
+  license:
+    name: Foodies License
+    url: https://cc-s2021-foodies.com/license
+  
+paths: 
+  /users/{id}:
+    get:
+      description: Obtain information about specific user
+      parameters: 
+        - in: path
+          name: id
+          required: true
+          description: The id of the user
+          schema:
+            type: integer
+            example: 32
+      responses:
+        200:
+          description: Successfully found the user
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+    
+  /recipes/{id}:
+    get:
+      description: Obtain information about specific recipe
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The id of the recipe
+          schema:
+            type: string
+            example: "1. Drink a glass of water"
+      responses:
+        200:
+          description: Successfully found a recipe
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Recipe'
+            
+components:
+  schemas:
+    User:
+      description: Model containing user info
+      properties:
+        name:
+          type: string
+          example: prasantadh
+    
+    Recipe:
+      description: Model containing recipe info
+      properties:
+        name:
+          type: string
+      
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/prasantadh/cc-s2021-foodies/1.0.0

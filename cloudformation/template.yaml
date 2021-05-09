@@ -4,6 +4,12 @@ Description: Template for Spam Detection Email filters
 
 Resources:
 
+  APIGateway:
+    Type: "AWS::ApiGateway::RestApi"
+    Properties:
+      Description: ApiGateway for the Application
+      Name: "foodies-api"
+
   LambdaExecutionRole:
     Type: "AWS::IAM::Role"
     Properties: 
@@ -42,14 +48,38 @@ Resources:
   UserLambda:
     Type: "AWS::Lambda::Function"
     Properties:
-      FunctionName: "user-lambda"
+      FunctionName: "user-profile-lambda"
       Role: !GetAtt LambdaExecutionRole.Arn
       Code: 
         ZipFile: |
           def lambda_handler(event, context):
-            return {"statusCode" : "200", "body" : "hola!"}
+            return {"statusCode" : "200", "body" : "return user profile"}
       Runtime: python3.7
-      Handler: lambda_function.lambda_handler
+      Handler: index.lambda_handler
+
+  AuthorizeUserLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "authorize-user-lambda"
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {"statusCode" : "200", "body" : "authorize a user"}
+      Runtime: python3.7
+      Handler: index.lambda_handler
+
+  RecipeLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "recipe-profile-lambda"
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {"statusCode" : "200", "body" : "return a recipe"}
+      Runtime: python3.7
+      Handler: index.lambda_handler
 
   S3Frontend:
     Type: "AWS::S3::Bucket"
