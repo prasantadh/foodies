@@ -53,7 +53,7 @@ function registerUser() {
         cognitoUser = result.user;
         console.log('Username : ' + cognitoUser.getUsername());
         alert('A confirmation email has been sent to your email.');
-        window.location.href = 'welcome.html';
+        window.location.href = 'index.html';
     })
 
     
@@ -82,6 +82,9 @@ function userSignin() {
             var accessToken = result.getAccessToken().getJwtToken();
             var idToken = result.idToken.jwtToken;
             console.log('Jwt Token : ' + accessToken);
+
+            redirectHome(accessToken);
+
         },
 
         onFailure: function(err) {
@@ -90,5 +93,15 @@ function userSignin() {
         },
 
     });
+
+}
+
+
+function redirectHome(jwtToken) {
+
+    if (jwtToken != null) {
+        window.location.href = "home.html";
+    }
+
 
 }
