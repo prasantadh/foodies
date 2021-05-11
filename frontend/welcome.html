@@ -9,7 +9,12 @@
   <link href="css/buttons.css" rel="stylesheet" />
   <link href="css/background_image.css" rel="stylesheet" />
   <link href="css/login_signup_style.css" rel="stylesheet" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="scripts/config.js"></script> 
+  <script src="scripts/amazon-cognito-auth.min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+  <script src="scripts/amazon-cognito-identity.min.js"></script>
+  <script src="scripts/userAuthentication.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
 <body style="padding-top: 11px">
@@ -24,16 +29,15 @@
     </a>
     <div>
       <form style="margin: auto">
-        <input type="text" placeholder="E-mail" name="email" id="email" required style="margin-top: 22px" />
-        <input type="password" placeholder="Password" name="password" id="password" required style="margin-top: 15px" />
-        <button type="button" class="btn btn-dark button-custom" id="Login" onclick="location.href='index.html'"
-          style="margin-top: 12px;">
+        <input type="text" placeholder="E-mail" name="email" id="email" required style="margin-top: 22px; color:white;" />
+        <input type="password" placeholder="Password" name="password" id="password" required style="margin-top: 15px; color:white;" />
+        <button type="button" class="btn btn-dark button-custom" id="Login" style="margin-top: 12px;" onclick="userSignin()">
           Login
         </button>
       </form>
     </div>
     <p style="margin-top: 15px; margin-bottom: 3px">Not a user yet?</p>
-    <button type="button" class="btn btn-dark button-custom" id="Signup">
+    <button type="button" class="btn btn-dark button-custom" id="Signup" onclick="location.href='signup.html'">
       Sign Up
     </button>
   </div>
