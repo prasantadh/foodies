@@ -1,13 +1,13 @@
 <div class="sidebar" id="sidebar">
     <center>
         <img src="css/images/sample_profile_image.png" class="profile_image" alt="">
-        <h3>John Doe</h3>
+        <h3 id="sidebarUsername">John Doe</h3>
     </center>
-    <a href="#" id="home"><i class="fas fa-desktop"></i><span>Home</span></a>
+    <a href="home.html" id="home"><i class="fas fa-desktop"></i><span>Home</span></a>
     <a href="#"><i class="fas fa-utensils"></i><span>My Recipes</span></a>
     <a href="recipe_social.html"><i class="fas fa-info"></i><span>Recipes by Users</span></a>
     <a href="#"><i class="fas fa-user"></i><span>Profile</span></a>
-    <a href="index.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+    <a href="#" id="logoutButton" onclick="userLogout()"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
 </div>
 <script>
     $(document).ready(function(){

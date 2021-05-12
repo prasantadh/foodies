@@ -33,10 +33,12 @@ body {
   color: #ccc;
   margin-top: -5px;
   margin-bottom: 20px;
+  padding: 5px;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1.2;
   font-size: 170%;
+  overflow-x: unset;
 }
 
 .sidebar a {
