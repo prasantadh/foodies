@@ -8,6 +8,11 @@
     <link href = "css/background_image.css" rel ="stylesheet"/>
     <link href = "css/login_signup_style.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/amazon-cognito-auth.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <script src="scripts/amazon-cognito-identity.min.js"></script>
+    <script src="scripts/userAuthentication.js"></script>
+    <script src="scripts/config.js"></script>
   </head>
   <body style = "padding-top:61px;">
     <div class="w3-card-4 w3-round-large card-custom" style="margin-top: 40px; padding-top:9px">
@@ -19,7 +24,7 @@
           name="email"
           id="email"
           required
-          style="margin-top: -11px"
+          style="margin-top: -11px; color:white;"
         />
         <input
           type="text"
@@ -27,7 +32,7 @@
           name="fname"
           id="fname"
           required
-          style="margin-top: 15px"
+          style="margin-top: 15px; color:white;"
         />
         <input
           type="text"
@@ -35,7 +40,7 @@
           name="lname"
           id="lname"
           required
-          style="margin-top: 15px"
+          style="margin-top: 15px; color:white;"
         />
         <input
           type="password"
@@ -43,7 +48,7 @@
           name="password"
           id="password"
           required
-          style="margin-top: 15px"
+          style="margin-top: 15px; color:white;"
         />
         <input
           type="password"
@@ -51,9 +56,9 @@
           name="confirm_password"
           id="confirm_password"
           required
-          style="margin-top: 15px"
+          style="margin-top: 15px; color:white;"
         />
-        <button type="button" class="btn btn-dark button-custom" id="SignupPart1" onclick="location.href='food_preferences.html'" style="margin-top: 15px;">Next</button>
+        <button type="button" class="btn btn-dark button-custom" id="SignupPart1" onclick="registerUser()" style="margin-top: 15px;">Next</button>
         </form>
         </div>
   </body>
