@@ -2,31 +2,56 @@ var email;
 var firstName;
 var lastName;
 var password;
-var poolData;
+var cognitoUser;
+var idToken;
+var userPool;
+var userPoolId = 'us-east-1_WOWiGWkNP';
+var clientId = '52mveimcink6t1osd3fopgfekn';
+var region = 'us-east-1';
+var identityPoolId = 'us-east-1:9d1a41f6-89b5-48e4-bf38-af6b15a1aa67';
+var fullName;
 
-function registerUser() {
+var poolData = {
+    UserPoolId : userPoolId,
+    ClientId : clientId
+};
+
+getCurrentSession();
+
+
+document.onload = function() {
+    console.log(logoutButton);
+    document.getElementById('logoutButton').onclick = function() {
+        userLogout();
+    }    
+};
+
+function register() {
 
     email = document.getElementById('email').value;
     firstName = document.getElementById('fname').value;
     lastName = document.getElementById('lname').value;
+    password = document.getElementById('password').value;
+    confirmPassword = document.getElementById('confirm_password').value;
+    fullName = firstName;
+    if (lastName) {
+        fullName = FullName + " " + lastName;
+    } 
 
-    if (document.getElementById('email') === null) {
-        alert("Please enter a valid email address to register.");
-    }
-
-    if (document.getElementById('password').value != document.getElementById('confirm_password').value) {
-        alert("Passwords Do Not Match! Please Try Again.")
-        throw "Passwords do not match!"
+    if (!email || !firstName || !password) {
+        alert('Please fill out all the required fields!')
     } else {
-        password = document.getElementById('password').value;
+        if (password == confirmPassword) {
+            console.log('Password confirmed.');
+            registerUser();
+        } else {
+            alert('Passwords do not match!');
+        }
     }
+}
 
-    poolData = {
-        UserPoolId : _config.cognito.userPoolId,
-        ClientId : _config.cognito.clientId
-    };
+function registerUser() {
 
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var attributeList = [];
 
     var emailData = {
@@ -36,7 +61,7 @@ function registerUser() {
 
     var nameData = {
         Name : 'name',
-        Value : firstName + ' ' + lastName,
+        Value : fullName,
     };
 
     var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(emailData);
@@ -47,61 +72,112 @@ function registerUser() {
 
     userPool.signUp(email, password, attributeList, null, function(err, result) {
         if (err) {
-            alert(err.message || JSON.stringify(err));
+            alert('An error occured while signing up!');
+            console.log(err.message + JSON.stringify(err));
             return;
         }
         cognitoUser = result.user;
         console.log('Username : ' + cognitoUser.getUsername());
+        console.log('Name : ' + fullName);
         alert('A confirmation email has been sent to your email.');
         window.location.href = 'index.html';
-    })
-
-    
+    });
 }
+
 
 function userSignin() {
 
+    var username = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
 
-    var authenticationData = {
-        Username : document.getElementById('email').value,
-        Password : document.getElementById('password').value,
-    };
-    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-    var poolData = { 
-        UserPoolId : _config.cognito.userPoolId,
-        ClientId : _config.cognito.clientId,
-    };
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    var userData = {
-        Username : document.getElementById('email').value,
-        Pool : userPool
-    };
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-    cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-            var accessToken = result.getAccessToken().getJwtToken();
-            var idToken = result.idToken.jwtToken;
-            console.log('Jwt Token : ' + accessToken);
-
-            redirectHome(accessToken);
-
-        },
-
-        onFailure: function(err) {
-            console.log('Jwt Error : ' + JSON.stringify(err));
-            alert(err);
-        },
-
-    });
-
+    if (!username || !password) {
+        alert('Please enter Username and Password!');
+    } else {
+        var authenticationData = {
+            Username : username,
+            Password : password,
+        };    
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+        var userData = {
+            Username : username,
+            Pool : userPool
+        };
+        cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+        //loader.show()
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: function(result) {
+                console.log('Logged in successfully!');
+                idToken = result.getIdToken().getJwtToken();
+                getCognitoIdentityCredentials();
+                window.location.href = "home.html";
+            },
+            onFailure: function(err) {
+                alert(err.message);
+            },
+        });
+    }
 }
 
 
-function redirectHome(jwtToken) {
+function userLogout() {
 
-    if (jwtToken != null) {
-        window.location.href = "home.html";
+    if (cognitoUser != null) {
+        cognitoUser.signOut();
+        console.log('Logged Out!');
+        window.location.href = "index.html";
     }
 
-
 }
+
+function getCognitoIdentityCredentials() {
+    AWS.config.region = region;
+    
+    var loginMap = {};
+    loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+
+    //AWS.config.credentials.clearCachedId();
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: identityPoolId,
+        Logins: loginMap
+    });
+
+    AWS.config.credentials.get(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Received Credentials.');
+            var jwtDecoded = parseJwt(idToken);
+            console.log(jwtDecoded);
+            document.getElementById('sidebarUsername').innerText = jwtDecoded['name'];
+        }
+    });
+}
+
+function getCurrentSession() {
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    cognitoUser = userPool.getCurrentUser();
+
+    if (cognitoUser != null) {
+        cognitoUser.getSession(function(err, session) {
+            if (err) {
+                console.log(err.message);
+            } else {
+                console.log('Session Found! Logged in.');
+                idToken = session.getIdToken().getJwtToken();
+                getCognitoIdentityCredentials();
+            }
+        });
+    } else {
+        console.log('Session expired. Please log in again.');
+    }
+}
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
