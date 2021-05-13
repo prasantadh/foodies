@@ -1,6 +1,6 @@
-def lambda_handler(event, content):
+def lambda_handler(event, context):
     print("event->", event)
-    print("event->", context)
+    print("context->", context)
     return [
             {
                 'name' : 'tap water',
