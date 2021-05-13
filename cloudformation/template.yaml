@@ -67,18 +67,6 @@ Resources:
       Runtime: python3.7
       Handler: index.lambda_handler
 
-  AuthorizeUserLambda:
-    Type: "AWS::Lambda::Function"
-    Properties:
-      FunctionName: "authorize-user-lambda"
-      Role: !GetAtt LambdaExecutionRole.Arn
-      Code: 
-        ZipFile: |
-          def lambda_handler(event, context):
-            return {"statusCode" : "200", "body" : "authorize a user"}
-      Runtime: python3.7
-      Handler: index.lambda_handler
-
   RecipeLambda:
     Type: "AWS::Lambda::Function"
     Properties:
