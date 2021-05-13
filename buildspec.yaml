@@ -5,10 +5,10 @@ phases:
       - echo BUILD ENVIRONMENT
       - cd frontend
       - aws s3 sync . $S3_FRONTEND_URL
-      - cd lambda/user-lambda
+      - cd lambda/user-profile
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $USER_PROFILE_LAMBDA --zip-file fileb://lambda.zip
-      - cd ../recipe-lambda
+      - cd ../recipe-profile
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $RECIPE_PROFILE_LAMBDA --zip-file fileb://lambda.zip
 
