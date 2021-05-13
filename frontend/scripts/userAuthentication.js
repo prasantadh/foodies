@@ -1,7 +1,3 @@
-var email;
-var firstName;
-var lastName;
-var password;
 var cognitoUser;
 var idToken;
 var userPool;
@@ -9,7 +5,12 @@ var userPoolId = 'us-east-1_WOWiGWkNP';
 var clientId = '52mveimcink6t1osd3fopgfekn';
 var region = 'us-east-1';
 var identityPoolId = 'us-east-1:9d1a41f6-89b5-48e4-bf38-af6b15a1aa67';
-var fullName;
+var jwtUsername;
+
+AWS.config.region = 'us-east-1'; 
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: identityPoolId
+});
 
 var poolData = {
     UserPoolId : userPoolId,
@@ -28,12 +29,12 @@ document.onload = function() {
 
 function register() {
 
-    email = document.getElementById('email').value;
-    firstName = document.getElementById('fname').value;
-    lastName = document.getElementById('lname').value;
-    password = document.getElementById('password').value;
-    confirmPassword = document.getElementById('confirm_password').value;
-    fullName = firstName;
+    var email = document.getElementById('email').value;
+    var firstName = document.getElementById('fname').value;
+    var lastName = document.getElementById('lname').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirm_password').value;
+    var fullName = firstName;
     if (lastName) {
         fullName = FullName + " " + lastName;
     } 
@@ -43,14 +44,14 @@ function register() {
     } else {
         if (password == confirmPassword) {
             console.log('Password confirmed.');
-            registerUser();
+            registerUser(email, password, fullName);
         } else {
             alert('Passwords do not match!');
         }
     }
 }
 
-function registerUser() {
+function registerUser(email, password, fullName) {
 
     var attributeList = [];
 
@@ -108,8 +109,8 @@ function userSignin() {
             onSuccess: function(result) {
                 console.log('Logged in successfully!');
                 idToken = result.getIdToken().getJwtToken();
-                getCognitoIdentityCredentials();
                 window.location.href = "home.html";
+                getCognitoIdentityCredentials();
             },
             onFailure: function(err) {
                 alert(err.message);
@@ -147,8 +148,8 @@ function getCognitoIdentityCredentials() {
         } else {
             console.log('Received Credentials.');
             var jwtDecoded = parseJwt(idToken);
-            console.log(jwtDecoded);
-            document.getElementById('sidebarUsername').innerText = jwtDecoded['name'];
+            jwtUsername = jwtDecoded['name'];
+            console.log(jwtUsername);
         }
     });
 }
@@ -181,3 +182,10 @@ function parseJwt (token) {
 
     return JSON.parse(jsonPayload);
 };
+
+function updateUsername() {
+    console.log('Update : ' + jwtUsername);
+    if (document.getElementById('sidebarUsername')) {
+        document.getElementById('sidebarUsername').innerText = jwtUsername;   
+    }
+}
