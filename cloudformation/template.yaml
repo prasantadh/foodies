@@ -2,6 +2,16 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Template for Spam Detection Email filters
 
+Parameters:
+  UserProfileLambdaName:
+    Type: String
+    Description: Function Name for User Profile Lambda
+    Default: 'user-profile-lambda'
+  RecipeProfileLambdaName:
+    Type: String
+    Description: Function Name for Recipe Profile Lambda
+    Default: 'recipe-profile-lambda'
+
 Resources:
 
   APIGateway:
@@ -48,7 +58,7 @@ Resources:
   UserLambda:
     Type: "AWS::Lambda::Function"
     Properties:
-      FunctionName: "user-profile-lambda"
+      FunctionName: !Ref UserProfileLambdaName
       Role: !GetAtt LambdaExecutionRole.Arn
       Code: 
         ZipFile: |
@@ -72,7 +82,7 @@ Resources:
   RecipeLambda:
     Type: "AWS::Lambda::Function"
     Properties:
-      FunctionName: "recipe-profile-lambda"
+      FunctionName: !Ref RecipeProfileLambdaName
       Role: !GetAtt LambdaExecutionRole.Arn
       Code: 
         ZipFile: |
@@ -173,6 +183,12 @@ Resources:
           - Name: "S3_FRONTEND_URL"
             Type: "PLAINTEXT"
             Value: !Sub "s3://${S3Frontend}"
+          - Name: "USER_PROFILE_LAMBDA"
+            Type: "PLAINTEXT"
+            Value: !Ref UserProfileLambdaName
+          - Name: "RECIPE_PROFILE_LAMBDA"
+            Type: "PLAINTEXT"
+            Value: !Ref RecipeProfileLambdaName
       Artifacts:
         Type: CODEPIPELINE
 
