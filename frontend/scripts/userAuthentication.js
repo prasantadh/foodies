@@ -36,7 +36,7 @@ function register() {
     var confirmPassword = document.getElementById('confirm_password').value;
     var fullName = firstName;
     if (lastName) {
-        fullName = FullName + " " + lastName;
+        fullName = fullName + " " + lastName;
     } 
 
     if (!email || !firstName || !password) {
@@ -73,8 +73,8 @@ function registerUser(email, password, fullName) {
 
     userPool.signUp(email, password, attributeList, null, function(err, result) {
         if (err) {
-            alert('An error occured while signing up!');
-            console.log(err.message + JSON.stringify(err));
+            console.log('An error occured while signing up!');
+            alert(err.message + JSON.stringify(err));
             return;
         }
         cognitoUser = result.user;
