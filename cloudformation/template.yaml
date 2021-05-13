@@ -11,6 +11,10 @@ Parameters:
     Type: String
     Description: Function Name for Recipe Profile Lambda
     Default: 'recipe-profile-lambda'
+  RecipesByIngredientsLambdaName:
+    Type: String
+    Description: Function Name for Recipe By Ingredients Lambda
+    Default: 'recipes-by-ingredients-lambda'
 
 Resources:
 
@@ -76,6 +80,27 @@ Resources:
         ZipFile: |
           def lambda_handler(event, context):
             return {"statusCode" : "200", "body" : "return a recipe"}
+      Runtime: python3.7
+      Handler: index.lambda_handler
+
+  RecipesByIngredientsLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: !Ref RecipesByIngredientsLambdaName
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return [
+              {
+                "name": "Tap Water",
+                "recipe" : "1. Get it from the tap"
+              },
+              { 
+                "name" : "Bottled Water",
+                "recipe" : "1. Get it from a bodega."
+                }
+            ]
       Runtime: python3.7
       Handler: index.lambda_handler
 
@@ -177,6 +202,9 @@ Resources:
           - Name: "RECIPE_PROFILE_LAMBDA"
             Type: "PLAINTEXT"
             Value: !Ref RecipeProfileLambdaName
+          - Name: "RECIPES_BY_INGREDIENTS_LAMBDA"
+            Type: "PLAINTEXT"
+            Value: !Ref RecipesByIngredientsLambdaName
       Artifacts:
         Type: CODEPIPELINE
 

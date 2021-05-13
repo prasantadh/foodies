@@ -11,6 +11,9 @@ phases:
       - cd ../recipe-profile
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $RECIPE_PROFILE_LAMBDA --zip-file fileb://lambda.zip
+      - cd ../recipes-by-ingredients
+      - zip -r lambda.zip *
+      - aws lambda update-function-code --function-name $RECIPES_BY_INGREDIENTS_LAMBDA --zip-file fileb://lambda.zip
 
 artifacts:
   files:

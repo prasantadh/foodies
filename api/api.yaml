@@ -52,6 +52,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/AllRecipes'
     
+  /recipe_by_ingredients/:
+    get:
+      description: Obtain Recipes given ingredients
+      parameters: 
+        - in: query
+          name: ingredients
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Ingredient'
+            example: 
+              - name: "salt"
+              - name: "peanuts"
+      responses:
+        200:
+          description: Succesfully received the user recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllRecipes'
+    
   /recipes/{id}:
     get:
       description: Obtain information about specific recipe
@@ -101,6 +123,19 @@ components:
         recipe:
           type: string
           example: "1. get it from the tap"
+    
+    AllIngredients:
+      description: A collection of ingredients
+      type: array
+      items:
+        $ref: '#/components/schemas/AllIngredients'
+    
+    Ingredient:
+      description: Model containing an ingredient
+      properties:
+        name:
+          type: string
+          example: "peanuts"
       
 servers:
   # Added by API Auto Mocking Plugin
