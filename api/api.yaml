@@ -33,6 +33,25 @@ paths:
                 type: object
                 $ref: '#/components/schemas/User'
     
+  /user_recipes/:
+    get:
+      description: Obtain Recipes belonging to a user
+      parameters: 
+        - in: query
+          name: user_recipes
+          required: true
+          schema:
+            type: string
+            example: "sample-user"
+                
+      responses:
+        200:
+          description: Succesfully received the user recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllRecipes'
+    
   /recipes/{id}:
     get:
       description: Obtain information about specific recipe
@@ -43,7 +62,7 @@ paths:
           description: The id of the recipe
           schema:
             type: string
-            example: "1. Drink a glass of water"
+            example: "1"
       responses:
         200:
           description: Successfully found a recipe
@@ -62,11 +81,26 @@ components:
           type: string
           example: prasantadh
     
+    AllRecipes:
+      description: A collection of Recipes
+      type: array
+      items: 
+        $ref: '#/components/schemas/Recipe'
+      example:
+        - name: "Tap Water"
+          recipe: "1. Get it from the tap"
+        - name: "Bottled Water"
+          recipe: "1. Find a convenience store"
+    
     Recipe:
       description: Model containing recipe info
       properties:
         name:
           type: string
+          example: "nyc tap water"
+        recipe:
+          type: string
+          example: "1. get it from the tap"
       
 servers:
   # Added by API Auto Mocking Plugin
