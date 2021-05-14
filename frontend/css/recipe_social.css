@@ -1,3 +1,9 @@
+.row.h5 {
+    float: left;
+    width: 10%;
+    padding: 50px;
+}
+
 .container-content {
     top: 5%;
     left: 20%;
@@ -14,4 +20,100 @@
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     font-weight: 500;
     line-height: 1.2;
+}
+
+#addRecipeBlock {
+    padding: 20px;
+}
+
+.popup .ingredientsOverlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+
+}
+
+.popup .overlayContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 20px;
+    background: #fff;
+    width: 700px;
+    height: 600px;
+    z-index: 2;
+    text-align: center;
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+.popup .closeButton {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: #222;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.popup.active .ingredientsOverlay {
+    display: block;
+}
+
+.popup.active .overlayContent {
+    transition: all 300ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+textarea {
+    font-size: .8rem;
+    letter-spacing: 1px;
+}
+
+textarea {
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+
+}
+
+#quantity {
+    width: 35%;
+    float: left;
+}
+
+#ingredient {
+    width: 55%;
+    float: left;
+}
+
+#addMore {
+    width: 10%;
+    margin-right: 10px;
+}
+
+#uploadImage {
+    width: 30%;
+    margin-right: 10px;
+
+}
+
+#confirmPost {
+    width: 20%;
 }
