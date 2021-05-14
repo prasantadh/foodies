@@ -15,6 +15,10 @@ Parameters:
     Type: String
     Description: Function Name for Recipe By Ingredients Lambda
     Default: 'recipes-by-ingredients-lambda'
+  PostCommentLambdaName:
+    Type: String
+    Description: Function Name for Post Comment Lambda
+    Default: 'post-comment-lambda'
 
 Resources:
 
@@ -106,6 +110,21 @@ Resources:
                 "recipe" : "1. Get it from a bodega."
                 }
             ]
+      Runtime: python3.7
+      Handler: index.lambda_handler
+
+  PostCommentLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: !Ref PostCommentLambdaName
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {
+              "statusCode" : 200,
+              "body": "Comment Posted Successfully!"
+              }
       Runtime: python3.7
       Handler: index.lambda_handler
 
@@ -210,6 +229,9 @@ Resources:
           - Name: "RECIPES_BY_INGREDIENTS_LAMBDA"
             Type: "PLAINTEXT"
             Value: !Ref RecipesByIngredientsLambdaName
+          - Name: "POST_COMMENT_LAMBDA"
+            Type: "PLAINTEXT"
+            Value: !Ref PostCommentLambdaName
       Artifacts:
         Type: CODEPIPELINE
 

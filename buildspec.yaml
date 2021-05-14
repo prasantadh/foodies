@@ -14,6 +14,9 @@ phases:
       - cd ../recipes-by-ingredients
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $RECIPES_BY_INGREDIENTS_LAMBDA --zip-file fileb://lambda.zip
+      - cd ../post-comment
+      - zip -r lambda.zip *
+      - aws lambda update-function-code --function-name $POST_COMMENT_LAMBDA --zip-file fileb://lambda.zip
 
 artifacts:
   files:
