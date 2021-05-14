@@ -247,7 +247,6 @@ function writeRecipesToDb(username, recipeDesc, listIngredients) {
       
     let date = new Date();
     var docClient = new AWS.DynamoDB.DocumentClient();
-    console.log(typeof(jwtUserid));
     var params = {
         TableName :"usersRecipes",
         Item:{
@@ -258,6 +257,8 @@ function writeRecipesToDb(username, recipeDesc, listIngredients) {
             "recipeDescription": recipeDesc,
             "ingredients": listIngredients,
             "numberOfLikes": 0,
+            "comments": [{"S" : []}],
+            "likes": [{"S" : []}],
         }
     };
     docClient.put(params, function(err, data) {
@@ -304,11 +305,11 @@ function fetchRecipesFromDb() {
         if (err) {
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
         } else {
-            // print all the movies
             console.log("Scan succeeded.");
             data.Items.forEach(function(item) {
                 content.appendChild(addRecipeCard(item));
                 console.log(item)
+                showComments(item.comments, item.recipeName);
             })
         }
     }
@@ -344,11 +345,14 @@ function addRecipeCard(item) {
     likeButton.id = "likeButton";
     var iLike = document.createElement('i');
     iLike.className = "fa fa-thumbs-up";
-    iLike.innerHTML += "  " + item.numberOfLikes + "  Likes";
+    var numberOfLikes = ObjectLength(item.likes) - 1;
+    if (numberOfLikes == -1){numberOfLikes = 0};
+    iLike.innerHTML += "  " + numberOfLikes + "  Likes";
     likeButton.appendChild(iLike);
+    likeButton.onclick = function(){addLike(item.id, item.createdAt)};
     var dummyp = document.createElement('p');
     var commentInput = document.createElement('input');
-    commentInput.id = "commentInput";
+    commentInput.id = "commentInput" + item.recipeName;
     commentInput.placeholder = "Add a comment.";
     commentInput.type = "text";
     commentInput.style.width = "60%";
@@ -358,10 +362,12 @@ function addRecipeCard(item) {
     commentButton.className = "w3-button w3-theme-d2 w3-margin-bottom";
     commentButton.id = "commentButton";
     commentButton.style.float="left";
-    commentButton.onclick = addComment();
+    commentButton.onclick = function(){addComment(item, commentInput.value)};
     iComment = document.createElement('i');
     iComment.className = "fa fa-comment";
     iComment.innerHTML = "   Comment";
+    var commentsByUsers = document.createElement('p');
+    commentsByUsers.id = "commentsFor-" + item.recipeName;
     commentButton.appendChild(iComment);
     recipeCardDiv.appendChild(postedSpan);
     recipeCardDiv.appendChild(recipeNameHeader);
@@ -372,11 +378,107 @@ function addRecipeCard(item) {
     recipeCardDiv.appendChild(dummyp);
     recipeCardDiv.appendChild(commentInput);
     recipeCardDiv.appendChild(commentButton);
+    recipeCardDiv.appendChild(dummyp);
+    recipeCardDiv.appendChild(commentsByUsers);
     return recipeCardDiv;
 }
 
-function addComment() {
+function ObjectLength( object ) {
+    var length = 0;
+    for( var key in object ) {
+        if( object.hasOwnProperty(key) ) {
+            ++length;
+        }
+    }
+    return length;
+};
 
-    console.log("LOLLLLLL");
+function addComment(item, commentText) {
 
+    console.log("Comment by : " + jwtUsername);
+    console.log("comment : " + commentText);
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var params = {
+        TableName :"usersRecipes",
+        Key:{
+            'id': item.id,
+            "createdAt": item.createdAt,
+        }, 
+        UpdateExpression: "set comments = list_append(comments, :comms)",
+        ExpressionAttributeValues: {
+            ":comms": [
+                {
+                    "S": [item.id, jwtUsername, commentText],
+                }   
+            ],
+        }
+    };
+    docClient.update(params, function(err, data) {
+        if (err) {
+            console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("PutItem succeeded: " + "\n"); // + JSON.stringify(data, undefined, 2)
+            console.log(params);
+        }
+    });
+}
+
+function showComments(comments, recipe) {
+    commentsBlock = document.getElementById('commentsFor-' + recipe);
+    var commentby;
+    var commentText;
+    try {
+        comments.forEach(function(comment) {
+            //console.log(comment.S[1]);
+            commentby = comment.S[1];
+            commentText = comment.S[2];
+            console.log(commentby, commentText);
+            if (!commentText) {
+                commentsBlock.innerHTML = `
+                <div class="row">
+                <p style="float:left;">Add comment below</p>
+            `;
+            } else { 
+            commentsBlock.innerHTML += `
+                <div class="row">
+                <p style="float:left;">` + commentby + ` :   ` + commentText + `</p>
+            `
+            }
+        });
+    } catch {
+        commentsBlock.innerHTML = `
+            <div class="row">
+            <p style="float:left;">Add comment below.</p>
+        `
+    }
+
+
+}
+
+
+function addLike(userId, timeStamp) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var params = {
+        TableName :"usersRecipes",
+        Key:{
+            'id': userId,
+            "createdAt": timeStamp,
+        }, 
+        UpdateExpression: "set likes = list_append(likes, :like)",
+        ExpressionAttributeValues: {
+            ":like": [
+                {
+                    "S": [userId],
+                }   
+            ],
+        }
+    };
+    docClient.update(params, function(err, data) {
+        if (err) {
+            console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("PutItem succeeded: " + "\n"); // + JSON.stringify(data, undefined, 2)
+            console.log(params);
+        }
+    });
 }
