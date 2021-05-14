@@ -1,7 +1,7 @@
 var apigClient = apigClientFactory.newClient();
 
 function getRecipe(){
-    apigClient.idIdGet(params = { "id": "p3pKOD6jIHEcjf20CCXohP8uqkG5dGi" }, '').then(function (result) {
+    apigClient.recipesIdGet(params = { "id": "p3pKOD6jIHEcjf20CCXohP8uqkG5dGi" , "table": "recipes"}, '').then(function (result) {
         var recTitle = result['data']['Item']['title']['S']
 
         console.log(recTitle)
