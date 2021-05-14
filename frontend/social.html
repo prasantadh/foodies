@@ -21,7 +21,7 @@
     <script src="scripts/recipe_social.js"></script>
     <title>Foodies</title>
    </head>
-<body>    
+<body onload="fetchRecipesFromDb()">    
     <div id="nav-placeholder">
 
     </div>
@@ -32,7 +32,7 @@
     });
     </script>
 
-    <div class="container-content">
+    <div class="container-content" id="contentBodyBlock">
         <div class="w3-col m12">
             <div class="w3-row-padding">
                 <div class="w3-col m12">
@@ -73,12 +73,13 @@
                     </div>
                 </div>
             </div>
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+            <!--
+            <div class="w3-container w3-card w3-white w3-round w3-margin" id="userRecipesBlock"><br>
                 <img src="css/images/sample_profile_image.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px;border: 1px solid black;">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>Burger</h4><br>
-                <h7 class="w3-opacity">Recipe by John Doe</h7>
-                <p>Short description of the burger which tells what the burger is and what is it made of. Description actually depends on the user entering the recipe but I am just assuming to fill out this sample description.</p>
+                <span class="w3-right w3-opacity" id="postedAtTime">1 min</span>
+                <h4 id="recipeName">Burger</h4><br>
+                <h7 class="w3-opacity" id="recipeByName">Recipe by John Doe</h7>
+                <p id="cardRecipeDescription">Short description of the burger which tells what the burger is and what is it made of. Description actually depends on the user entering the recipe but I am just assuming to fill out this sample description.</p>
                 <div class="w3-row-padding" style="margin:0 -16px">
                     <div class="w3-third">
                     <img src="css/images/burger.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
@@ -90,51 +91,12 @@
                         <img src="css/images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
                     </div>
                 </div>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom" id="likeButton"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <!-- <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
-            </div>
             
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="css/images/sample_profile_image.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px;border: 1px solid black;">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>Burger</h4><br>
-                <h7 class="w3-opacity">Recipe by John Doe</h7>
-                <p>Short description of the burger which tells what the burger is and what is it made of. Description actually depends on the user entering the recipe but I am just assuming to fill out this sample description.</p>
-                <div class="w3-row-padding" style="margin:0 -16px">
-                    <div class="w3-third">
-                    <img src="images/burger.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-third">
-                    <img src="images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-third">
-                        <img src="images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                    </div>
-                </div>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <!-- <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
+                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom" id="likeButton"><i class="fa fa-thumbs-up"></i>  Like</button> 
+                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
             </div>
-
-            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                <img src="images/sample_profile_image.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px;border: 1px solid black;">
-                <span class="w3-right w3-opacity">1 min</span>
-                <h4>Burger</h4><br>
-                <h7 class="w3-opacity">Recipe by John Doe</h7>
-                <p>Short description of the burger which tells what the burger is and what is it made of. Description actually depends on the user entering the recipe but I am just assuming to fill out this sample description.</p>
-                <div class="w3-row-padding" style="margin:0 -16px">
-                    <div class="w3-third">
-                    <img src="images/burger.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-third">
-                    <img src="images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                    </div>
-                    <div class="w3-third">
-                        <img src="images/burger.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-                    </div>
-                </div>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                <!--<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> !-->
-            </div>
+            !-->
+            
         </div>
     </div>
 </body>
