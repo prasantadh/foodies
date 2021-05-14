@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
@@ -23,15 +25,13 @@
     <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
     <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
     <script type="text/javascript" src="apigClient.js"></script>
+    <script type="text/javascript" src="scripts/userAuthentication.js"></script>
     <script type="text/javascript" src="scripts/code.js"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
-    <script src="scripts/aws-cognito-sdk.min.js"></script>
-    <script src="scripts/amazon-cognito-identity.min.js"></script>  
-    <script src="scripts/userAuthentication.js"></script>
+    
     <title>Recipe | Foodies</title>
    </head>
 <body style = "background: #ffffff;">    
-  <div id="loader" class="center"></div>
+  <!-- <div id="loader" class="center"></div> -->
 
     <div id="nav-placeholder">
     </div>
@@ -60,33 +60,29 @@
                 </div>
         </section>
     <div style="margin-left: 50px; margin-top: -20px; padding-bottom: 20px;">
-        <h3 id="RecipeTitle">Recipe</h3>
+        <h3 id="RecipeTitle"></h3>
         <div style="margin-top: 20px">
             <h4>Ingredients</h4>
-            <p id = "Ingredients">Ingredient List</p>
+            <p id = "Ingredients"></p>
         </div>
         <div style="margin-top: 20px; max-width: 800px;">
             <h4>Recipe</h4>
-            <p id = "Instructions">Instructions</p>
+            <p id = "Instructions"></p>
         </div>
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom" id="likeButton"><i class="fa fa-thumbs-up"></i>Like</button> 
+        <h4>Comments</h4>        
+        <p id="Comments"></p>
+        <!-- <script type="text/javascript">
+          window.onload = function () { 
+              addComment();
+          }
+      </script> -->
+        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>Comment</button>
         </div>
         <script type="text/javascript">
-          document.onreadystatechange = function() {
-              if (document.readyState !== "complete") {
-                  document.querySelector(
-                    "body").style.visibility = "hidden";
-                  document.querySelector(
-                    "#loader").style.visibility = "visible";
-              } else {
-                  document.querySelector(
-                    "#loader").style.display = "none";
-                  document.querySelector(
-                    "body").style.visibility = "visible";
-              }
-          };
           window.onload = function () { 
               getRecipe();
-          };          
+          }
       </script>
   </body>
 
