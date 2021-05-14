@@ -144,6 +144,8 @@ function getCognitoIdentityCredentials() {
         Logins: loginMap
     });
 
+    
+
     AWS.config.credentials.get(function(err) {
         if (err) {
             console.log(err);
@@ -218,8 +220,6 @@ function addMore() {
     console.log(quantity + " - " + item);
     li.appendChild(document.createTextNode(quantity + " " + item));
     ul.appendChild(li);
-    quantity = "";
-    item = "";
 }
 
 function writeRecipes() {
@@ -249,24 +249,86 @@ function writeRecipesToDb(username, recipeDesc, listIngredients) {
     var docClient = new AWS.DynamoDB.DocumentClient();
     console.log(typeof(jwtUserid));
     var params = {
-        TableName :"userRecipes",
+        TableName :"usersRecipes",
         Item:{
             'id': jwtUserid.toString(),
+            "createdAt": date.toISOString(),
             "name": username,
             "recipeName": recipeName,
             "recipeDescription": recipeDesc,
             "ingredients": listIngredients,
             "numberOfLikes": 0,
-            "createAt": date.toISOString(),
         }
     };
     docClient.put(params, function(err, data) {
         if (err) {
             console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
         } else {
-            console.log("PutItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
-            location.reload();
+            console.log("PutItem succeeded: " + "\n"); // + JSON.stringify(data, undefined, 2)
+            console.log(params);
         }
     });
 
+    document.getElementById('ingredientList').innerHTML = "";
+    togglePopup();
+    
+}
+
+
+function fetchRecipesFromDb() {
+    const content = document.getElementById('contentBodyBlock');
+
+    getCognitoIdentityCredentials();
+
+    AWS.config.credentials.get(function(){
+        var accessKeyId = AWS.config.credentials.accessKeyId;
+        var secretAccessKey = AWS.config.credentials.secretAccessKey;
+        var sessionToken = AWS.config.credentials.sessionToken;
+      });
+    var docClient = new AWS.DynamoDB.DocumentClient();
+
+    var params = {
+        TableName : "usersRecipes",
+        //KeyConditionExpression : "id",
+        // ExpressionAttributeNames:{
+        //     "#yr": "year"
+        // },
+        // ExpressionAttributeValues: {
+        //     ":yyyy": 1985
+        // }
+    };
+    
+    var result = docClient.scan(params, onScan);
+    
+    function onScan(err, data) {
+        if (err) {
+            console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            // print all the movies
+            console.log("Scan succeeded.");
+            data.Items.forEach(function(item) {
+                content.appendChild(addRecipeCard(item));
+            })
+        }
+    }
+}
+
+function addRecipeCard(item) {
+    var postedAtTime = document.getElementById('postedAtTime');
+    var recipeNameHeader = document.getElementById('recipeName');
+    var recipyBy = document.getElementById('recipeByName');
+    var recipeDescription = document.getElementById('cardRecipeDescription');
+
+    var recipeCardDiv = document.createElement('div');
+    recipeCardDiv.className = "w3-container w3-card w3-white w3-round w3-margin"
+    recipeCardDiv.innerHTML = ` 
+    <span class="w3-right w3-opacity" id="postedAtTime">` + item.createdAt + `</span>
+    <h4 id="recipeName">` + item.recipeName + `</h4>
+    <h7 class="w3-opacity" id="recipeByName">by ` + item.name + `</h7>
+    <p id="cardRecipeDescription">` + item.recipeDescription + `</p>
+    <p>` + item.ingredients + `</p>
+    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom" id="likeButton"><i class="fa fa-thumbs-up"></i>  ` + item.numberOfLikes + ` Likes</button> 
+    `
+    
+    return recipeCardDiv;
 }

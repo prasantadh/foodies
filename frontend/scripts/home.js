@@ -34,7 +34,7 @@ function addCard() {
         </div>
     `;
 
-    return colDiv
+    return colDiv;
 }
 
 for (var i = 0; i < 10; i++) {
