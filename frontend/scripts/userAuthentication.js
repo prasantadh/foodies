@@ -6,6 +6,8 @@ var clientId = '52mveimcink6t1osd3fopgfekn';
 var region = 'us-east-1';
 var identityPoolId = 'us-east-1:9d1a41f6-89b5-48e4-bf38-af6b15a1aa67';
 var jwtUsername;
+var jwtUserid;
+var recipeName
 
 AWS.config.region = 'us-east-1'; 
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -149,7 +151,9 @@ function getCognitoIdentityCredentials() {
             console.log('Received Credentials.');
             var jwtDecoded = parseJwt(idToken);
             jwtUsername = jwtDecoded['name'];
+            jwtUserid = jwtDecoded['sub'];
             console.log(jwtUsername);
+            updateUsername();
         }
     });
 }
@@ -188,4 +192,81 @@ function updateUsername() {
     if (document.getElementById('sidebarUsername')) {
         document.getElementById('sidebarUsername').innerText = jwtUsername;   
     }
+}
+
+function togglePopup(){
+    if (document.getElementById('recipeName').value == "") {
+        alert('Please enter a recipe name to continue!.');
+    }
+    else {
+        recipeName = document.getElementById('recipeName').value;
+        console.log(recipeName);
+        var popupHeader = document.getElementById('popupHeader');
+        popupHeader.innerText = "Add ingredients for '" + recipeName + "'";
+
+        document.getElementById("popup").classList.toggle("active");
+        
+    } 
+    
+  }
+
+function addMore() {
+    var ul = document.getElementById('ingredientList');
+    var li = document.createElement('li');
+    var quantity = document.getElementById('quantity').value;
+    var item = document.getElementById('ingredient').value;
+    console.log(quantity + " - " + item);
+    li.appendChild(document.createTextNode(quantity + " " + item));
+    ul.appendChild(li);
+    quantity = "";
+    item = "";
+}
+
+function writeRecipes() {
+    var userName = jwtUsername;
+    var listIngredients = [];
+    var recipeDesc = document.getElementById('recipeDescription').value;
+    let ingreds = document.getElementById('ingredientList').querySelectorAll('li');
+    console.log(userName);
+    console.log(recipeDesc);
+    ingreds.forEach((item, index) => {
+        console.log(item.innerText, index);
+        listIngredients.push(item.innerText);
+    });
+    console.log("listIngredients: " + listIngredients);
+    writeRecipesToDb(userName, recipeDesc, listIngredients);
+}
+
+function writeRecipesToDb(username, recipeDesc, listIngredients) {
+
+    // AWS.config.update({
+    //     region: "us-west-1",
+    //     accessKeyId: "fakeMyKeyId",
+    //     secretAccessKey: "fakeSecretAccessKey"
+    //   });
+      
+    let date = new Date();
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    console.log(typeof(jwtUserid));
+    var params = {
+        TableName :"userRecipes",
+        Item:{
+            'id': jwtUserid.toString(),
+            "name": username,
+            "recipeName": recipeName,
+            "recipeDescription": recipeDesc,
+            "ingredients": listIngredients,
+            "numberOfLikes": 0,
+            "createAt": date.toISOString(),
+        }
+    };
+    docClient.put(params, function(err, data) {
+        if (err) {
+            console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("PutItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+            location.reload();
+        }
+    });
+
 }
