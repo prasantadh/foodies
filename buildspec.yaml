@@ -17,6 +17,9 @@ phases:
       - cd ../post-comment
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $POST_COMMENT_LAMBDA --zip-file fileb://lambda.zip
+      - cd ../like-recipe
+      - zip -r lambda.zip *
+      - aws lambda update-function-code --function-name $LIKE_RECIPE_LAMBDA --zip-file fileb://lambda.zip
 
 artifacts:
   files:

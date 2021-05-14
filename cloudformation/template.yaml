@@ -19,6 +19,10 @@ Parameters:
     Type: String
     Description: Function Name for Post Comment Lambda
     Default: 'post-comment-lambda'
+  LikeRecipeLambdaName:
+    Type: String
+    Description: Function Name for Like Recipe Lambda
+    Default: 'like-recipe-lambda'
 
 Resources:
 
@@ -128,6 +132,21 @@ Resources:
       Runtime: python3.7
       Handler: index.lambda_handler
 
+  LikeRecipeLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: !Ref LikeRecipeLambdaName
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code: 
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {
+              "statusCode" : 200,
+              "body": "Successfully liked the recipe"
+              }
+      Runtime: python3.7
+      Handler: index.lambda_handler
+
   S3Frontend:
     Type: "AWS::S3::Bucket"
     Properties:
@@ -232,6 +251,9 @@ Resources:
           - Name: "POST_COMMENT_LAMBDA"
             Type: "PLAINTEXT"
             Value: !Ref PostCommentLambdaName
+          - Name: "LIKE_RECIPE_LAMBDA"
+            Type: "PLAINTEXT"
+            Value: !Ref LikeRecipeLambdaName
       Artifacts:
         Type: CODEPIPELINE
 
