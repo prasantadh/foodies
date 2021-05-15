@@ -206,17 +206,6 @@ def parse_ingredient(raw_ingredient : str) -> Ingredient:
     return name 
 
 
-# with open('scrape_FoodNetwork.json') as f:
-#     data = json.load(f)
-# for rID in data:
-#     processed = []
-#     if data[rID]['ingredients']:
-#         for raw_ings in data[rID]['ingredients']:
-#             processed.append(parse_ingredient(raw_ings))
-#     data[rID]['list_ingredient'] = processed
-#     print (processed)
-# json.dump(data, open('scrape_FoodNetwork.json','w'))
-
 with open('scrape_FoodNetwork.json') as f:
     data = json.load(f)
 for rID in data:
@@ -225,8 +214,8 @@ for rID in data:
     if data[rID]['ingredients']:
         for raw_ings in data[rID]['ingredients']:
             processed.append(parse_ingredient(raw_ings))
-#     data[rID]['list_ingredient'] = processed
-# json.dump(data, open('scrape_FoodNetwork.json','w'))
+    data[rID]['list_ingredient'] = processed
+json.dump(data, open('scrape_FoodNetwork.json','w'))
 
 
 
