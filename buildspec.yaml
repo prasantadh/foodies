@@ -12,6 +12,7 @@ phases:
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $RECIPE_PROFILE_LAMBDA --zip-file fileb://lambda.zip
       - cd ../recipes-by-ingredients
+      - pip install -r requirements.txt -t .
       - zip -r lambda.zip *
       - aws lambda update-function-code --function-name $RECIPES_BY_INGREDIENTS_LAMBDA --zip-file fileb://lambda.zip
       - cd ../post-comment
