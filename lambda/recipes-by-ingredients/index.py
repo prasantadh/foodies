@@ -14,9 +14,8 @@ region = 'us-east-1'
 
 def lambda_handler(event, context):
 
-    print ('event : ', event)                   ## Event structure unknown!
-    labels = event["labels"]
-
+    labels = event["multiValueQueryStringParameters"]["ingredients[]"]
+    print(json.dumps(event, indent=4), type(labels), labels)
     if len(labels) != 0:
         rIDs = get_recipes(labels)
 
@@ -30,10 +29,10 @@ def lambda_handler(event, context):
         return{
             'statusCode': 200,
             'headers': {"Access-Control-Allow-Origin":"*"},
-            'body': {
+            'body': json.dumps({
                 'userQuery': labels,
                 'recipes':rIDs
-            },
+            }),
             'isBase64Encoded': False
         }
 
