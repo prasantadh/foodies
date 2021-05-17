@@ -1,8 +1,9 @@
 var apigClient = apigClientFactory.newClient();
-
+var rID = ''//id from HTTP GET here
 function getRecipe(){
-    apigClient.recipesIdGet(params = { "id": "0MQI9HFNFlFGl2v26NcAaqegwGIavbq"}, "").then(function (result) {
-        
+    //apigClient.recipesIdGet(params = { "id": "0MQI9HFNFlFGl2v26NcAaqegwGIavbq"}, "").then(function (result) {
+    apigClient.recipesIdGet(params = { "id": rID}, "").then(function (result) {
+
         //Title
         var recTitle = result['data']['Item']['title']['S']
         console.log(recTitle)
